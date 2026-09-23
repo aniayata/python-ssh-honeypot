@@ -21,17 +21,17 @@ def main():
     try:
         client.connect("127.0.0.1", port=2222, username="ania", password="codergirl")
         
-        # Open transport channel directly without requiring PTY allocation
+        
         transport = client.get_transport()
         channel = transport.open_session()
         channel.invoke_shell()
 
-        # Thread to read responses from server asynchronously
+      
         thread = threading.Thread(target=receive_data, args=(channel,))
         thread.daemon = True
         thread.start()
 
-        # Main loop to send keyboard input
+        
         while True:
             cmd = input()
             channel.send(cmd + "\n")
